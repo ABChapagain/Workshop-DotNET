@@ -1,0 +1,31 @@
+﻿@model List<StudentVm>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">List of Student</h1>
+  
+</div>
+
+
+<table class="table mt-5 table-light table-striped p-2">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Addres</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Address</td>
+            </tr>
+        }
+    </tbody>
+</table>
