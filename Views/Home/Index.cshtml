@@ -6,7 +6,6 @@
 
 <div class="text-center">
     <h1 class="display-4">List of Student</h1>
-  
 </div>
 
 
@@ -15,7 +14,8 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Addres</th>
+            <th>Address</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +25,10 @@
                 <td>@item.Id</td>
                 <td>@item.Name</td>
                 <td>@item.Address</td>
+                <td>
+                    <a class="btn">Edit</a>
+                    <a class="btn">Delete</a>
+                </td>
             </tr>
         }
     </tbody>
