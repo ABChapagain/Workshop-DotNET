@@ -1,0 +1,35 @@
+@model List<Faculty>
+@{
+
+    int count = 1;
+}
+
+<div class="container mt-5">  
+    <a class="btn btn-primary" asp-controller="Faculty" asp-action="Create">Create</a>
+    <table class="table mt-5 table-light table-striped p-2">
+        <thead class="table-dark">
+            <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                        <td>
+                            <a asp-controller="Faculty" asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                            <a asp-controller="Faculty" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                count++;
+            }
+        </tbody>
+    </table>
+</div>
+

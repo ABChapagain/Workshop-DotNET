@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FirstApp.Migrations
 {
     /// <inheritdoc />
-    public partial class addclassinfo : Migration
+    public partial class newmigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,6 +26,21 @@ namespace FirstApp.Migrations
                 {
                     table.PrimaryKey("pk_class_infos", x => x.id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "faculties",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    price = table.Column<int>(type: "integer", nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_faculties", x => x.id);
+                });
         }
 
         /// <inheritdoc />
@@ -33,6 +48,9 @@ namespace FirstApp.Migrations
         {
             migrationBuilder.DropTable(
                 name: "class_infos");
+
+            migrationBuilder.DropTable(
+                name: "faculties");
         }
     }
 }

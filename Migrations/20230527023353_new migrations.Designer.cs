@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FirstApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230526055216_add class info")]
-    partial class addclassinfo
+    [Migration("20230527023353_new migrations")]
+    partial class newmigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,6 +51,34 @@ namespace FirstApp.Migrations
                         .HasName("pk_class_infos");
 
                     b.ToTable("class_infos", (string)null);
+                });
+
+            modelBuilder.Entity("Faculty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("integer")
+                        .HasColumnName("price");
+
+                    b.HasKey("Id")
+                        .HasName("pk_faculties");
+
+                    b.ToTable("faculties", (string)null);
                 });
 #pragma warning restore 612, 618
         }
