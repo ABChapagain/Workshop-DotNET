@@ -14,7 +14,7 @@ public class ClassInfoController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var list = await _context.ClassInfos.ToListAsync();
+        var list = await _context.ClassInfos.OrderBy(x => x.Id).ToListAsync();
         return View(list);
     }
 
@@ -78,7 +78,7 @@ public class ClassInfoController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(int id, ClassInfoVm model)
+    public async Task<IActionResult> Update(long id, ClassInfoVm model)
     {
         try
         {
@@ -89,6 +89,25 @@ public class ClassInfoController : Controller
             info.Description = model.Description;
 
             _context.ClassInfos.Update(info);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+
+    [HttpGet]
+    public async Task<IActionResult> Delete(long id)
+    {
+        try
+        {
+            var info = await _context.ClassInfos.Where(x => x.Id == id).FirstOrDefaultAsync();
+            if (info == null) throw new Exception($"class info with id {id} not found");
+
+            _context.ClassInfos.Remove(info);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

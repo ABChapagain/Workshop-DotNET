@@ -1,11 +1,14 @@
 @model List<ClassInfo>
+@{
+    int count = 1;
+}
 
 <div class="container mt-5">  
     <a class="btn btn-primary" asp-controller="ClassInfo" asp-action="Create">Create</a>
     <table class="table mt-5 table-light table-striped p-2">
         <thead class="table-dark">
             <tr>
-                <th>ID</th>
+                <th>SN</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Action</th>
@@ -15,14 +18,15 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Id</td>
+                    <td>@count</td>
                     <td>@item.Name</td>
                     <td>@item.Description</td>
                     <td>
-                        <a asp-controller="ClassInfo" asp-action="Update" asp-route-id="@item.Id" class="btn">Edit</a>
-                        <a class="btn">Delete</a>
+                        <a asp-controller="ClassInfo" asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                        <a asp-controller="ClassInfo" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
+                count++;
             }
         </tbody>
     </table>
