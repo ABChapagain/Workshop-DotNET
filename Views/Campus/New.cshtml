@@ -1,0 +1,57 @@
+
+
+
+<div class="container mt-5" id="form">
+    <a class="btn btn-secondary" asp-controller="Campus" asp-action="Index">Back</a>
+
+    <form class="form" v-on:submit.prevent="save">
+        <div class="form-group my-3">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" v-model="campus.name">
+        </div>
+        <div class="form-group my-3">
+            <label for="address">Address</label>
+            <input class="form-control" type="text"  v-model="campus.address">
+        </div>
+        <button class="btn btn-success" type="submit">Add</button>
+    </form>
+</div>
+
+
+@section Scripts {
+    <script>
+
+        $(() => {
+            const app = Vue.createApp({
+                setup(){
+                    const campus = Vue.ref({name: '', address : ''});
+
+                    const save = async () => {
+                        try {
+                            let model = campus.value;
+                            const res = $.ajax('/Campus/CreateCampus',  {
+                                data : {model},
+                                method: "post"
+                            })
+                            location.replace('/Campus/Index')
+                            return; 
+                        } catch(error) {
+                            console.log(error)
+                            alert('Error Occured')
+                        }
+                    }
+
+
+                    return {
+                        campus,
+                        save
+
+                    }
+
+                }
+                
+            });
+            app.mount("#form");
+        })
+    </script>
+}

@@ -1,35 +1,65 @@
-﻿@model List<StudentVm>
-
+﻿
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">List of Student</h1>
+<div id="app">
+    <div class="text-center">
+        <h1 class="display-4">{{message}}</h1>
+    </div>
+
+    <form action="">
+        <label for="" class="form-label">Name</label>
+        <input type="text" class="form-control" v-model="name">
+        <span>{{name}}</span>
+    </form>
+
+    <label for="">Show Data</label>
+    <input type="checkbox" v-model="showData">
+
+    <table class="table mt-5 table-light table-striped p-2" v-if="showData" >
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+           <tr v-for="item in list">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.desc}}</td>
+           </tr>
+        </tbody>
+    </table>
+    <h3 v-else>Data Hidden</h3>
 </div>
 
 
-<table class="table mt-5 table-light table-striped p-2">
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.Name</td>
-                <td>@item.Address</td>
-                <td>
-                    <a class="btn">Edit</a>
-                    <a class="btn">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@section Scripts {
+    <script>
+        $(() => {
+            const app = Vue.createApp({
+                setup() {
+                    const message = "Hello World";
+                    const name = Vue.ref();
+                    const list = Vue.ref([
+                        {id: 1, name: "one", desc: "Desc One"},
+                        {id: 2, name: "two", desc: "Desc Two"}
+                    ]);
+
+                    const showData = Vue.ref(false);
+
+                    return {
+                        message,
+                        name,
+                        list,
+                        showData
+                    }
+                }
+            });
+            app.mount("#app");
+        })
+    </script>
+}
