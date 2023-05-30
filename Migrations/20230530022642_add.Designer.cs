@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FirstApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230528060900_Added campus")]
-    partial class Addedcampus
+    [Migration("20230530022642_add")]
+    partial class add
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,6 +104,75 @@ namespace FirstApp.Migrations
                         .HasName("pk_faculties");
 
                     b.ToTable("faculties", (string)null);
+                });
+
+            modelBuilder.Entity("Student", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("address");
+
+                    b.Property<long>("ClassInfoId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("class_info_id");
+
+                    b.Property<string>("ContactNo")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("contact_no");
+
+                    b.Property<long>("FacultyId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("faculty_id");
+
+                    b.Property<int>("FacultyId1")
+                        .HasColumnType("integer")
+                        .HasColumnName("faculty_id1");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_student");
+
+                    b.HasIndex("ClassInfoId")
+                        .HasDatabaseName("ix_student_class_info_id");
+
+                    b.HasIndex("FacultyId1")
+                        .HasDatabaseName("ix_student_faculty_id1");
+
+                    b.ToTable("student", (string)null);
+                });
+
+            modelBuilder.Entity("Student", b =>
+                {
+                    b.HasOne("ClassInfo", "ClassInfo")
+                        .WithMany()
+                        .HasForeignKey("ClassInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_student_class_infos_class_info_id");
+
+                    b.HasOne("Faculty", "Faculty")
+                        .WithMany()
+                        .HasForeignKey("FacultyId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_student_faculties_faculty_id1");
+
+                    b.Navigation("ClassInfo");
+
+                    b.Navigation("Faculty");
                 });
 #pragma warning restore 612, 618
         }

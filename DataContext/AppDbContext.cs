@@ -16,6 +16,12 @@ public class AppDbContext : DbContext
         optionsBuilder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Student>();
+    }
+
     public DbSet<ClassInfo> ClassInfos { get; set; }
     public DbSet<Faculty> Faculties { get; set; }
 

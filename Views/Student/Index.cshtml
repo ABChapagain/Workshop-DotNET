@@ -1,0 +1,32 @@
+@model List<Student>
+    
+<div class="container mt-5">  
+    <a class="btn btn-primary" asp-controller="Student" asp-action="New">New</a>
+    <table class="table mt-5 table-light table-striped p-2">
+        <thead class="table-dark">
+            <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Contact Number</th>
+                <th>Class</th>
+                <th>Faculty</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {   
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Address</td>
+                    <td>@item.ContactNo</td>
+                    <td>@item.ClassInfo.Name</td>
+                    <td>@item.Faculty.Name</td>
+                    <td>Edit || Delete</td>
+                </tr>   
+            }
+        </tbody>
+    </table>
+</div>
